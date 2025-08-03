@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Uniglobe Secondary School</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="img/small college.png" alt="Uniglobe Secondary School Logo"></a>
+                    <div class="logo-text">
+                        <h1>Uniglobe Secondary School</h1>
+                        <p>Excellence in Education</p>
+                    </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#mis">MIS</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero" style="background-image: url('img/main.jpg'); background-size: cover; background-position: center;">
+        <div class="container" id="Welcome" style="background-color: rgba(44, 62, 80, 0.7); padding: 60px 20px; border-radius: 10px;">
+            <h2 id="Welcome">Welcome to Uniglobe Secondary School</h2>
+            <p>Shaping futures through quality education and innovation</p>
+<a href="https://sites.google.com/uniglobecollege.edu.np/uirc/home" target="_blank"><button class="cta-button">Learn More</button></a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Our School</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Uniglobe Secondary School is committed to providing excellent education in a nurturing environment. We focus on academic excellence, character development, and preparing students for future success.</p>
+                    <p>Our experienced faculty and modern facilities create an ideal learning environment for all students.</p>
+                    <a href="about.html"><button class="about-button">Learn More About Us</button></a>
+                </div>
+                <div class="about-image">
+                    <img src="img/UGSS_Photoshoot_2023-07.png" alt="Uniglobe Secondary School" style="width:100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="courses" class="courses">
+        <div class="container">
+            <h2>Our Courses</h2>
+            <div class="course-grid">
+            <div class="course-card">
+                <h3>Science Stream</h3>
+                <img src="img/RSN05222.png" alt="Science Stream" style="width:100%; border-radius: 10px; margin-bottom: 10px;">
+                <p>Physics, Chemistry, Biology, Mathematics</p>
+            </div>
+            <div class="course-card">
+                <h3>Management Stream</h3>
+                <img src="img/RSN05369.png" alt="Management Stream" style="width:100%; border-radius: 10px; margin-bottom: 10px;">
+                <p>Accountancy, Economics, Business Studies</p>
+            </div>
+            <div class="course-card">
+                <h3>Humanities Stream</h3>
+                <img src="img/RSN05504.png" alt="Humanities Stream" style="width:100%; border-radius: 10px; margin-bottom: 10px;">
+                <p>History, Political Science, Sociology</p>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mis" class="mis">
+        <div class="container">
+            <h2>Management Information System</h2>
+            <div class="mis-content">
+                <div class="mis-features">
+                    <div class="feature-card">
+                        <h3>Student Records</h3>
+                        <p>Manage student information and academic records</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Attendance Tracking</h3>
+                        <p>Monitor student attendance and punctuality</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Grade Management</h3>
+                        <p>Record and analyze student performance</p>
+                    </div>
+                </div>
+                <div class="mis-demo">
+                <h3 id="logu">Student Login</h3>    
+                    <a href="login.html"><button class="cta-button">Login to MIS</button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p><strong>Address:</strong> Ganesthan Temple, Kamaladi, Kathmandu</p>
+                    <p><strong>Phone:</strong> 01-5321875, 01-5320722, 01-5351409</p>
+                    <p><strong>Email:</strong> info@uniglobeschool.edu.np</p>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2014 Uniglobe Secondary School. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple login functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Simple validation (no actual authentication)
+                if (username && password) {
+                    alert('Login successful! Welcome, ' + username);
+                    loginForm.reset();
+                } else {
+                    alert('Please enter both username and password');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

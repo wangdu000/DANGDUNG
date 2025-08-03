@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student MIS Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 10px;
+        }
+        .logo img {
+            height: 60px;
+            width: auto;
+        }
+        .logo-text h1 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        .logo-text p {
+            color: #3498db;
+            font-size: 1rem;
+            margin: 0;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 25px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #3498db;
+        }
+        .logo-link {
+            text-decoration: none;
+            color: inherit;
+            scroll-behavior: smooth;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .dashboard-header h1 {
+            color: #2c3e50;
+        }
+        .logout-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+        .dashboard-content {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #ecf0f1;
+        }
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .profile-info {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #7f8c8d;
+        }
+        .profile-details {
+            flex: 1;
+        }
+        .profile-details p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .stat-card p {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .calendar-header {
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .calendar-day {
+            background-color: #ecf0f1;
+            padding: 10px;
+            text-align: center;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .calendar-day.event {
+            background-color: #d6eaf8;
+            position: relative;
+        }
+        .calendar-day.event::after {
+            content: "•";
+            position: absolute;
+            bottom: 5px;
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+        .assignments-list {
+            list-style: none;
+            padding: 0;
+        }
+        .assignments-list li {
+            background-color: #ecf0f1;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .assignment-info h3 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+        .assignment-info p {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        .assignment-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .status-pending {
+            background-color: #f39c12;
+            color: white;
+        }
+        .status-submitted {
+            background-color: #27ae60;
+            color: white;
+        }
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .teacher-card {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .teacher-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #bdc3c7;
+            margin: 0 auto 15px;
+            display: block;
+        }
+        .teacher-card h3 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+        .teacher-card p {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <img src="img/small college.png" alt="Uniglobe Secondary School Logo">
+                </a>
+                <div class="logo-text">
+                    <h1>Uniglobe Secondary School</h1>
+                    <p>Excellence in Education</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="index.html#mis">MIS</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Student Dashboard</h1>
+            <button class="logout-button" onclick="location.href='login.html'">Logout</button>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="sidebar">
+                <ul>
+                    <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+                    <li><a href="#" onclick="showSection('profile')">Student Profile</a></li>
+                    <li><a href="#" onclick="showSection('calendar')">Activities Calendar</a></li>
+                    <li><a href="#" onclick="showSection('assignments')">Assignments</a></li>
+                    <li><a href="#" onclick="showSection('teachers')">Teachers</a></li>
+                </ul>
+            </div>
+
+            <div class="main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="section active">
+                    <h2>Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Attendance</h3>
+                            <p>92%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Average Grade</h3>
+                            <p>85%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Assignments</h3>
+                            <p>8/10</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Rank</h3>
+                            <p>12/120</p>
+                        </div>
+                    </div>
+                    
+                    <h2>Upcoming Events</h2>
+                    <div class="calendar">
+                        <div class="calendar-header">Sun</div>
+                        <div class="calendar-header">Mon</div>
+                        <div class="calendar-header">Tue</div>
+                        <div class="calendar-header">Wed</div>
+                        <div class="calendar-header">Thu</div>
+                        <div class="calendar-header">Fri</div>
+                        <div class="calendar-header">Sat</div>
+                        
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day event">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day event">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day event">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">31</div>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div id="profile" class="section">
+                    <h2>Student Profile</h2>
+                    <div class="profile-info">
+                        <div class="profile-picture">👤</div>
+                        <div class="profile-details">
+                            <p><strong>Name:</strong> John Doe</p>
+                            <p><strong>Student ID:</strong> STU12345</p>
+                            <p><strong>Grade:</strong> 12</p>
+                            <p><strong>Section:</strong> A</p>
+                            <p><strong>Date of Birth:</strong> January 15, 2005</p>
+                            <p><strong>Parent/Guardian:</strong> Jane Doe</p>
+                            <p><strong>Contact:</strong> +977 98XXXXXXXX</p>
+                            <p><strong>Email:</strong> john.doe@example.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar Section -->
+                <div id="calendar" class="section">
+                    <h2>Activities Calendar</h2>
+                    <div class="calendar">
+                        <div class="calendar-header">Sun</div>
+                        <div class="calendar-header">Mon</div>
+                        <div class="calendar-header">Tue</div>
+                        <div class="calendar-header">Wed</div>
+                        <div class="calendar-header">Thu</div>
+                        <div class="calendar-header">Fri</div>
+                        <div class="calendar-header">Sat</div>
+                        
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day event">5<br><span style="font-size:0.7rem;">Science Exam</span></div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day event">10<br><span style="font-size:0.7rem;">Sports Day</span></div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day event">18<br><span style="font-size:0.7rem;">Parent Meeting</span></div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">31</div>
+                    </div>
+                </div>
+
+                <!-- Assignments Section -->
+                <div id="assignments" class="section">
+                    <h2>Assignments</h2>
+                    <ul class="assignments-list">
+                        <li>
+                            <div class="assignment-info">
+                                <h3>Mathematics Assignment</h3>
+                                <p>Due: June 10, 2023</p>
+                            </div>
+                            <div class="assignment-status status-pending">Pending</div>
+                        </li>
+                        <li>
+                            <div class="assignment-info">
+                                <h3>Science Project</h3>
+                                <p>Due: June 15, 2023</p>
+                            </div>
+                            <div class="assignment-status status-pending">Pending</div>
+                        </li>
+                        <li>
+                            <div class="assignment-info">
+                                <h3>English Essay</h3>
+                                <p>Due: June 5, 2023</p>
+                            </div>
+                            <div class="assignment-status status-submitted">Submitted</div>
+                        </li>
+                        <li>
+                            <div class="assignment-info">
+                                <h3>Social Studies Report</h3>
+                                <p>Due: June 20, 2023</p>
+                            </div>
+                            <div class="assignment-status status-pending">Pending</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Teachers Section -->
+                <div id="teachers" class="section">
+                    <h2>Teachers</h2>
+                    <div class="teachers-grid">
+                        <div class="teacher-card">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #bdc3c7; margin: 0 auto 15px;"></div>
+                            <h3>Mr. Sharma</h3>
+                            <p>Mathematics</p>
+                            <p>Room: 101</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #bdc3c7; margin: 0 auto 15px;"></div>
+                            <h3>Mrs. Gurung</h3>
+                            <p>Science</p>
+                            <p>Room: 205</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #bdc3c7; margin: 0 auto 15px;"></div>
+                            <h3>Mr. Thapa</h3>
+                            <p>English</p>
+                            <p>Room: 108</p>
+                        </div>
+                        <div class="teacher-card">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #bdc3c7; margin: 0 auto 15px;"></div>
+                            <h3>Mrs. Rai</h3>
+                            <p>Social Studies</p>
+                            <p>Room: 210</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
